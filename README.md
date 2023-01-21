@@ -22,7 +22,7 @@ Basically the program can do two things, it can download a single fragmented vid
 To download a single video, you can use:
 
 ```python
-python fragment_downloader single name.ts 12 https://example.com/something/fragment-{}-a1v9.ts/
+python -u fragment_downloader single name.ts 12 https://example.com/something/fragment-{}-a1v9.ts/
 ```
 
 In this case, the downloader will download 12 fragments from ```https://example.com/``` and merge them together in the file ```name.ts```.
@@ -58,7 +58,7 @@ example.ts 12 https://example.com/something/fragment-{}-a1v9.ts/
 To download all these videos, use:
 
 ```python
-python fragment_downloader multi your_file.txt
+python -u fragment_downloader multi your_file.txt
 ```
 
 #### Additional arguments

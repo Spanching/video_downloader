@@ -17,7 +17,7 @@ class Downloader:
         if remove:
             self.__remove_fragments(fragments)
 
-    def __progbar(self, curr, total, full_progbar):
+    def progbar(self, curr, total, full_progbar):
         frac = curr/total
         filled_progbar = round(frac*full_progbar)
         print('\r', '#'*filled_progbar + '-'*(full_progbar -
@@ -26,9 +26,8 @@ class Downloader:
     def __download_fragments(self, base_url, amount):
         retry_list = []
         failed_list = []
-
         for i in range(1, amount+1):
-            self.__progbar(i, amount, 50)
+            self.progbar(i, amount, 50)
             try:
                 urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
             except:

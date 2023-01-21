@@ -1,5 +1,5 @@
 import argparse
-from downloader import *
+from fragment_downloader.downloader import *
 
 def run():
     parser = argparse.ArgumentParser()
