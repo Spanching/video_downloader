@@ -31,12 +31,13 @@ class Downloader:
             try:
                 urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
             except:
-                print(f"Error for fragment {i}")
+                print(f"\nError for fragment {i}")
                 retry_list.append(i)
 
         for i in retry_list:
             try:
                 urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
+                print(f"Retry for fragment {i} successful.")
             except:
                 print("Some fragments could not be downloaded:")
                 print(str(failed_list))
