@@ -13,5 +13,5 @@ pathlib = "^1.0.1"
 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.1.15"]
 build-backend = "poetry.core.masonry.api"

@@ -1,3 +1,5 @@
-videos/
-list.txt
+tmp/
+output/
+*.txt
+poetry.lock
 __pycache__/
