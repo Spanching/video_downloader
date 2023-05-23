@@ -13,7 +13,7 @@ The easiest way to run this is via Docker.
 ### Downloading a single fragmented Video
 
 ```
-docker run -v '[absolute path to output directory]:/code/output' spanching/fragmentdownloader [front] single "base_url" [back]
+docker run -v '[absolute path to output directory]:/code/output' spanching/fragmented-video-downloader [front] single "base_url" [back]
 ```
 
 #### Available Arguments (single)
@@ -31,7 +31,7 @@ docker run -v '[absolute path to output directory]:/code/output' spanching/fragm
 ### Downloading multiple fragmented Videos
 
 ```
-docker run -v '[absolute path to output directory]:/code/output' -v '[absolute path to input file]:/code/input.txt' spanching/fragmentdownloader [arg] multi
+docker run -v '[absolute path to output directory]:/code/output' -v '[absolute path to input file]:/code/input.txt' spanching/fragmented-video-downloader [arg] multi
 ```
 
 To see the available options for ```[arg]``` have a look at the available [arguments](#arguments-(multi)).
@@ -53,7 +53,7 @@ Note: The referenced input file must exist before running this, otherwise it wil
 
 The easiest way to use this is just by giving the url of the last segment of the video stream like this:
 ```
-docker run -v '[absolute path to output directory]:/code/output' spanching/fragmentdownloader "https://example.com/something/fragment-97-a1v9.ts/"
+docker run -v '[absolute path to output directory]:/code/output' spanching/fragmented-video-downloader "https://example.com/something/fragment-97-a1v9.ts/"
 ```
 
 ### Multi Video Download
@@ -71,7 +71,7 @@ example "https://example.com/something/fragment-97-a1v9.ts/"
 Then you can download those videos with:
 
 ```
-docker run -v '[absolute path to output directory]:/code/output' -v '[absolute path to input file]:/code/input.txt' spanching/fragmentdownloader multi
+docker run -v '[absolute path to output directory]:/code/output' -v '[absolute path to input file]:/code/input.txt' spanching/fragmented-video-downloader multi
 ```
 
 ## Running locally
