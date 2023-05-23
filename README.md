@@ -10,7 +10,6 @@ You need to have ffmpeg installed and added to your PATH. You can install it [he
 
 Basically the program can do two things, it can download a single fragmented video or multiple videos that are specified in a file. For each video the steps are pretty simple:
 
-1. Remove everything that lies in the temporary folder (default: ```tmp```)
 1. Download all fragments for the whole video
 1. Merge all the video fragments together using ffmpeg
 1. Remove temporary files and folders
@@ -80,7 +79,7 @@ Just make sure the name of the files are different if you specify them, otherwis
 To download all the videos specified in your file, use:
 
 ```python
-python -u fragment_downloader multi your_file.txt
+python -u fragment_downloader multi list.txt
 ```
 
 #### Additional arguments
