@@ -26,6 +26,7 @@ def run():
 
     multi = subparser.add_parser("multi")
     multi.add_argument('file', type=str, help="Name of the file used for multiple downloads after each other")
+    multi.add_argument('-m', '--multiprocessing', action='store_true', help="If specified, files will be downloaded simultaniously in multiple threads")
 
     args = parser.parse_args()
 
@@ -45,9 +46,13 @@ def run():
         downloader.download_and_merge(base_url, amount, filename, not keep)
     elif args.command == "multi":
         input_file = args.file
+        multiprocessing = args.multiprocessing
+        if not multiprocessing:
+            downloader = Downloader(args.path, args.output_path, index)
         with open(input_file) as f:
             for index, line in enumerate(f.readlines()):
-                downloader = Downloader(f"{args.path}{index}", args.output_path, index)
+                if multiprocessing:
+                    downloader = Downloader(f"{args.path}{index}", args.output_path, index)
                 if len(line.split(" ")) == 3:
                     filename, amount, base_url = line.split(" ")
                     base_url = base_url.strip(' "\'\n')
@@ -67,8 +72,14 @@ def run():
                     base_url = line
                     base_url = base_url.strip(' "\'\n')
                     amount, base_url = amount_url_from_url(base_url)
-                    filename = get_default_file_name(index)
-                Thread(target=downloader.download_and_merge, args=(base_url, amount, filename)).start()
+                    if multiprocessing:
+                        filename = get_default_file_name(index)
+                    else:
+                        filename = get_default_file_name()
+                if multiprocessing:
+                    Thread(target=downloader.download_and_merge, args=(base_url, amount, filename)).start()
+                else:
+                    downloader.download_and_merge(base_url, amount, filename)
 
 
 def validate_arguments(args):
