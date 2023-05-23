@@ -1,6 +1,5 @@
 tmp/
 output/
-**/*.txt
 poetry.lock
 **/__pycache__/
 .idea/
