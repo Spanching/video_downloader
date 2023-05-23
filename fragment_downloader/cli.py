@@ -25,8 +25,9 @@ def run():
                         help="If specified, fragments will not be removed from the folder")
 
     multi = subparser.add_parser("multi")
-    multi.add_argument('file', type=str, help="Name of the file used for multiple downloads after each other")
-    multi.add_argument('-m', '--multiprocessing', action='store_true', help="If specified, files will be downloaded simultaniously in multiple threads")
+    multi.add_argument('-f', '--file', type=str, help="Name of the file used for multiple downloads after each other")
+    multi.add_argument('-m', '--multiprocessing', action='store_true', help="If specified, files will be downloaded "
+                                                                            "simultaneously in multiple threads")
 
     args = parser.parse_args()
 
@@ -45,10 +46,13 @@ def run():
         downloader = Downloader(args.path, args.output_path)
         downloader.download_and_merge(base_url, amount, filename, not keep)
     elif args.command == "multi":
-        input_file = args.file
+        if args.file is not None:
+            input_file = args.file
+        else:
+            input_file = "input.txt"
         multiprocessing = args.multiprocessing
         if not multiprocessing:
-            downloader = Downloader(args.path, args.output_path, index)
+            downloader = Downloader(args.path, args.output_path)
         with open(input_file) as f:
             for index, line in enumerate(f.readlines()):
                 if multiprocessing:

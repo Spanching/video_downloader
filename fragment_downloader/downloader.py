@@ -43,17 +43,20 @@ class Downloader:
         os.chdir(f"{self.directory}")
 
         fragments = os.listdir(".")
-
-        with open("../mylist.txt", "w") as f:
+        file = "../mylist.txt" if self.index is None else f"../mylist{self.index}.txt"
+        with open(file, "w") as f:
             for frag in fragments:
                 f.write(f"file '{self.directory}/{frag}'\n")
         os.chdir("..")
         os.system(
-            f'cmd /c "ffmpeg -hide_banner -loglevel fatal -f concat -i mylist.txt -c copy {self.output_directory}/{name}"')
+            f'ffmpeg -hide_banner -loglevel fatal -f concat -i mylist.txt -c copy {self.output_directory}/{name}')
         return fragments
 
     def __remove_fragments(self, fragments):
-        os.remove("mylist.txt")
+        if self.index is None:
+            os.remove("mylist.txt")
+        else:
+            os.remove(f"mylist{self.index}.txt")
         for frag in fragments:
             os.remove(f"{self.directory}/{frag}")
         os.removedirs(self.directory)
