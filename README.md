@@ -1,6 +1,10 @@
-# Video Fragment Downloader with Python
+# Video Fragment Downloader (HLS Downloader)
 
-This is a video downloader, that can download videos that are fragmented into many short video files.
+This is a video downloader, that can download videos that are fragmented into many short video files with the ```.ts```
+ending. A lot of websites stream their videos like this nowadays, you can make sure by monitoring the network tab in 
+the developer tools and look for strings like ```seg-XX```. Then all you have to do is to get the URL of the last 
+segment, which you can do by skipping to the end of the video. With that base_url you can then proceed to download the 
+files. 
 
 ## Docker
 
