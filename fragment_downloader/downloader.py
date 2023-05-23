@@ -10,7 +10,8 @@ class Downloader:
         self.output_directory = output_dir
         self.ending = 'ts'
 
-    def dowload_and_merge(self, base_url, amount, filename, remove = True):
+    def dowload_and_merge(self, base_url, amount, filename, remove = True, index:int=None):
+        self.index = index
         self.__test_prerequisits()
         self.__download_fragments(base_url, amount)
         fragments = self.__merge_fragments(filename)
@@ -28,7 +29,10 @@ class Downloader:
         for i in range(1, amount+1):
             self.progbar(i, amount, 50)
             try:
-                urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
+                if self.index == None:
+                    urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
+                else:
+                    urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}{self.index}/{i:05d}.{self.ending}')
             except KeyboardInterrupt:
                 print("\nYou typed Ctrl+C. Aborting.")
                 raise KeyboardInterrupt
