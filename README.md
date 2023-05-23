@@ -17,12 +17,22 @@ Basically the program can do two things, it can download a single fragmented vid
 
 ### Single Video Download 
 
+#### Easiest Example
+
+If your URL contains the part 'seg-XXX' for each video segment, you can download that video by passing the last segment URL to this program like this:
+
+```python
+python -u fragment_downloader single https://example.com/something/seg-97-a1v9.ts/
+```
+
+The downloader will then download 97 segments from that URL.
+
 #### Usage
 
 To download a single video, you can use:
 
 ```python
-python -u fragment_downloader single name.ts 12 https://example.com/something/fragment-{}-a1v9.ts/
+python -u fragment_downloader single --name name.ts --amount 12 https://example.com/something/seg-{}-a1v9.ts/
 ```
 
 In this case, the downloader will download 12 fragments from ```https://example.com/``` and merge them together in the file ```name.ts```.

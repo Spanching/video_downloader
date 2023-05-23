@@ -25,11 +25,13 @@ class Downloader:
 
     def __download_fragments(self, base_url, amount):
         retry_list = []
-        failed_list = []
         for i in range(1, amount+1):
             self.progbar(i, amount, 50)
             try:
                 urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
+            except KeyboardInterrupt:
+                print("\nYou typed Ctrl+C. Aborting.")
+                raise KeyboardInterrupt
             except:
                 print(f"\nError for fragment {i}")
                 retry_list.append(i)
@@ -37,22 +39,18 @@ class Downloader:
         for i in retry_list:
             try:
                 urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
-                print(f"Retry for fragment {i} successful.")
+                print(f"\nRetry for fragment {i} successful.")
             except:
-                print("Some fragments could not be downloaded:")
-                print(str(failed_list))
-                print("aborting now")
-                raise Exception
+                raise Exception(f"Some of these fragments could not be downloaded: {retry_list}, aborting now.")
 
     def __merge_fragments(self, name):
         os.chdir(f"{self.directory}")
 
         fragments = os.listdir(".")
 
-        f = open("../mylist.txt", "w")
-        for frag in fragments:
-            f.write(f"file '{self.directory}/{frag}'\n")
-        f.close()
+        with open("../mylist.txt", "w") as f:
+            for frag in fragments:
+                f.write(f"file '{self.directory}/{frag}'\n")
         os.chdir("..")
         print("\nmerging fragments")
         os.system(f'cmd /c "ffmpeg -hide_banner -loglevel fatal -f concat -i mylist.txt -c copy {self.output_directory}/{name}"')
