@@ -42,7 +42,7 @@ class Downloader:
     def __merge_fragments(self, name):
         os.chdir(f"{self.directory}")
 
-        fragments = os.listdir(".")
+        fragments = sorted(os.listdir("."))
         file = "../mylist.txt" if self.index is None else f"../mylist{self.index}.txt"
         with open(file, "w") as f:
             for frag in fragments:
