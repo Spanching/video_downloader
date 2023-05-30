@@ -26,7 +26,7 @@ class Downloader:
         retry_list = []
         for i in tqdm.tqdm(range(1, amount + 1), ncols=100, colour="#00ff00"):
             try:
-                urllib.request.urlretrieve(base_url.format(f'{i:05d}'), f'{self.directory}/{i:05d}.{self.ending}')
+                urllib.request.urlretrieve(base_url.format(str(i)), f'{self.directory}/{i:05d}.{self.ending}')
             except (ContentTooShortError, URLError):
                 print(f"\nError for fragment {i}, will be retried later.")
                 retry_list.append(i)
